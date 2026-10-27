@@ -2,39 +2,71 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Arabic 365">
   <title>Arabic 365: Daily Classical Arabic Coach</title>
+
+  <!-- High-Res Flashy App Icon for iOS Home Screen (Gold Calligraphic Star on Deep Emerald) -->
+  <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'><defs><linearGradient id='bgGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23064e3b'/><stop offset='50%25' stop-color='%23022c22'/><stop offset='100%25' stop-color='%2309111e'/></linearGradient><linearGradient id='goldGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23fef08a'/><stop offset='50%25' stop-color='%23eab308'/><stop offset='100%25' stop-color='%23ca8a04'/></linearGradient><radialGradient id='glow' cx='50%25' cy='50%25' r='50%25'><stop offset='0%25' stop-color='%2310b981' stop-opacity='0.35'/><stop offset='100%25' stop-color='%23022c22' stop-opacity='0'/></radialGradient></defs><rect width='512' height='512' rx='115' fill='url(%23bgGrad)'/><circle cx='256' cy='256' r='200' fill='url(%23glow)'/><circle cx='256' cy='256' r='180' fill='none' stroke='url(%23goldGrad)' stroke-width='6' stroke-dasharray='12,8' opacity='0.8'/><circle cx='256' cy='256' r='158' fill='none' stroke='%2334d399' stroke-width='2' opacity='0.5'/><text x='256' y='295' font-size='165' font-weight='900' font-family='sans-serif' fill='url(%23goldGrad)' text-anchor='middle'>ع</text><text x='256' y='375' font-size='38' font-weight='800' font-family='sans-serif' fill='%236ee7b7' text-anchor='middle' letter-spacing='5'>365</text></svg>">
+
   <style>
     :root {
-      --primary: #059669;
-      --primary-dark: #047857;
-      --primary-light: #d1fae5;
-      --accent: #2563eb;
-      --accent-light: #eff6ff;
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --text: #0f172a;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
-      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --bg: #090d16;
+      --card-bg: #131b2e;
+      --card-completed-bg: #0d1522;
+      --card-border: #1e293b;
+      --primary: #10b981;
+      --primary-glow: rgba(16, 185, 129, 0.2);
+      --accent: #38bdf8;
+      --accent-dim: #0284c7;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-sub: #cbd5e1;
+      --triad-chip-bg: #1e293b;
+      --triad-chip-border: #334155;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     }
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+
+    /* Lock Horizontal Movement */
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      position: relative;
       margin: 0;
-      padding: 16px;
-      padding-bottom: 90px;
+      padding: 0;
+      -webkit-text-size-adjust: 100%;
+      touch-action: pan-y;
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      padding: 16px 14px 90px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 660px;
+      margin: 0 auto;
+    }
+
+    /* Header Bar */
     .header {
-      max-width: 680px;
-      margin: 0 auto 16px;
       background: var(--card-bg);
-      padding: 16px 20px;
-      border-radius: 16px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid var(--card-border);
       box-shadow: var(--shadow);
-      border: 1px solid var(--border);
+      margin-bottom: 14px;
     }
     .header-top {
       display: flex;
@@ -42,36 +74,50 @@
       align-items: center;
       margin-bottom: 12px;
     }
-    .logo-title {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--primary-dark);
+    .brand {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+    }
+    .brand-icon {
+      font-size: 24px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--primary);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      color: var(--primary);
+      font-weight: 900;
+    }
+    .brand-text {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: #fff;
     }
     .btn-vault {
-      background: var(--accent-light);
+      background: #1e293b;
       color: var(--accent);
-      border: 1px solid #bfdbfe;
+      border: 1px solid #38bdf844;
       padding: 8px 14px;
       border-radius: 20px;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
+
     .progress-bar-bg {
-      background: #e2e8f0;
+      background: #1e293b;
       border-radius: 999px;
       height: 10px;
       overflow: hidden;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
     .progress-fill {
-      background: var(--primary);
+      background: linear-gradient(90deg, #059669, #10b981, #34d399);
       height: 100%;
       width: 0%;
       transition: width 0.3s ease;
@@ -83,87 +129,116 @@
       color: var(--text-muted);
       font-weight: 600;
     }
+
+    /* Timer */
     .timer-card {
-      max-width: 680px;
-      margin: 0 auto 16px;
-      background: #1e293b;
-      color: white;
+      background: #101726;
+      border: 1px solid #1e293b;
       border-radius: 16px;
-      padding: 14px 20px;
+      padding: 12px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 14px;
       box-shadow: var(--shadow);
     }
     .timer-display {
       font-family: ui-monospace, Menlo, Monaco, monospace;
       font-size: 32px;
-      font-weight: 700;
+      font-weight: 800;
+      color: #38bdf8;
       letter-spacing: 1px;
+    }
+    .timer-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 700;
     }
     .timer-controls { display: flex; gap: 8px; }
     .btn-timer {
       background: var(--primary);
       border: none;
-      color: white;
-      font-weight: 600;
-      padding: 8px 16px;
+      color: #022c22;
+      font-weight: 700;
+      padding: 8px 18px;
       border-radius: 8px;
       cursor: pointer;
       font-size: 14px;
     }
     .btn-timer-reset {
-      background: rgba(255, 255, 255, 0.15);
-      border: none;
-      color: #cbd5e1;
-      padding: 8px 14px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: var(--text-sub);
+      padding: 8px 12px;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
     }
+
+    /* Filters */
     .controls {
-      max-width: 680px;
-      margin: 0 auto 16px;
       display: flex;
       gap: 8px;
+      margin-bottom: 14px;
     }
     .search-box {
       flex: 1;
       padding: 10px 14px;
-      border: 1px solid var(--border);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       border-radius: 10px;
+      color: white;
       font-size: 14px;
-      background: white;
       outline: none;
     }
     .phase-select {
-      padding: 10px;
-      border: 1px solid var(--border);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       border-radius: 10px;
+      color: var(--accent);
       font-size: 13px;
-      background: white;
-      font-weight: 600;
-      color: var(--text);
+      font-weight: 700;
+      padding: 0 10px;
+      outline: none;
     }
+
+    /* Lesson Cards */
     .card {
-      max-width: 680px;
-      margin: 0 auto 16px;
       background: var(--card-bg);
       border-radius: 16px;
-      padding: 20px;
-      border: 1px solid var(--border);
+      padding: 18px;
+      border: 1px solid var(--card-border);
       box-shadow: var(--shadow);
+      margin-bottom: 14px;
       transition: all 0.2s ease;
     }
+
+    /* Completed Strikethrough & Collapse Styling */
     .card.completed {
-      background: #f0fdf4;
-      border-color: #86efac;
+      background: var(--card-completed-bg);
+      border-color: #152438;
+      opacity: 0.85;
     }
+    .card.completed .card-title {
+      text-decoration: line-through;
+      color: #64748b;
+    }
+    .card.completed .day-badge {
+      color: #059669;
+    }
+    .card.completed .collapsed-content {
+      display: none;
+    }
+    .card.completed.expanded .collapsed-content {
+      display: block;
+    }
+
     .card-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 12px;
+      align-items: center;
+      gap: 10px;
     }
     .day-badge {
       font-size: 11px;
@@ -171,63 +246,80 @@
       color: var(--primary);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
     .card-title {
       font-size: 17px;
       font-weight: 700;
-      line-height: 1.3;
       margin: 0;
+      color: #fff;
+      line-height: 1.3;
     }
+
     .check-btn {
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      border: 2px solid #cbd5e1;
-      background: white;
+      border: 2px solid #334155;
+      background: #0f172a;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 18px;
-      transition: all 0.2s ease;
+      color: white;
       flex-shrink: 0;
     }
     .card.completed .check-btn {
       background: var(--primary);
       border-color: var(--primary);
-      color: white;
+      color: #022c22;
+      font-weight: 900;
     }
+
+    /* Expand / Collapse Review Toggle Button */
+    .btn-expand-review {
+      display: none;
+      background: transparent;
+      border: 1px solid #334155;
+      color: var(--accent);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .card.completed .btn-expand-review {
+      display: inline-block;
+    }
+
     .triad-box {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 14px;
+      margin: 14px 0;
     }
     .arabic-chip {
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      color: #1d4ed8;
-      padding: 6px 12px;
+      background: var(--triad-chip-bg);
+      border: 1px solid var(--triad-chip-border);
+      color: #7dd3fc;
+      padding: 7px 14px;
       border-radius: 10px;
       font-size: 19px;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
     }
-    .arabic-chip span.en {
-      font-size: 11px;
-      color: #64748b;
-      font-weight: normal;
-    }
+
     .activity-section {
-      background: #f8fafc;
-      border: 1px dashed #cbd5e1;
+      background: #0a0f1d;
+      border: 1px dashed #334155;
       border-radius: 12px;
-      padding: 14px;
-      margin-top: 10px;
+      padding: 12px 14px;
+      margin-top: 8px;
     }
     .activity-header {
       display: flex;
@@ -238,64 +330,67 @@
     .activity-tag {
       font-size: 12px;
       font-weight: 700;
-      color: #475569;
+      color: var(--primary);
       text-transform: uppercase;
     }
     .btn-swap {
-      background: white;
-      border: 1px solid #cbd5e1;
-      color: #334155;
-      font-size: 12px;
+      background: #1e293b;
+      border: 1px solid #475569;
+      color: var(--text-sub);
+      font-size: 11px;
       font-weight: 600;
-      padding: 4px 10px;
+      padding: 4px 8px;
       border-radius: 6px;
       cursor: pointer;
     }
     .script-bubble {
-      background: white;
-      border: 1px solid #e2e8f0;
-      border-right: 4px solid var(--primary);
+      background: #131b2e;
+      border: 1px solid #1e293b;
+      border-right: 4px solid var(--accent);
       border-radius: 8px;
-      padding: 10px 14px;
-      font-size: 18px;
+      padding: 12px 14px;
+      font-size: 19px;
       direction: rtl;
       text-align: right;
       margin: 8px 0;
+      color: #f1f5f9;
       line-height: 1.5;
       cursor: pointer;
     }
     .meta-line {
       font-size: 13px;
-      color: #475569;
+      color: var(--text-muted);
       margin-top: 6px;
       line-height: 1.4;
     }
-    /* Modal Styles */
+
+    /* Modal Sheet */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(15, 23, 42, 0.6);
-      backdrop-filter: blur(4px);
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(5px);
       display: none;
       align-items: flex-end;
       z-index: 1000;
     }
     .modal-overlay.active { display: flex; }
     .modal-sheet {
-      background: white;
+      background: #0f172a;
       width: 100%;
-      max-width: 680px;
+      max-width: 660px;
       margin: 0 auto;
       max-height: 85vh;
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
+      border-top: 1px solid #334155;
       padding: 20px;
       overflow-y: auto;
-      box-shadow: 0 -10px 25px rgba(0,0,0,0.2);
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
     }
     .vault-card {
-      background: #f8fafc;
-      border: 1px solid var(--border);
+      background: #1e293b;
+      border: 1px solid #334155;
       border-radius: 12px;
       padding: 14px;
       margin-bottom: 12px;
@@ -303,58 +398,67 @@
     .vault-title {
       font-weight: 700;
       font-size: 16px;
-      color: var(--primary-dark);
+      color: #38bdf8;
       margin-bottom: 4px;
     }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <div class="header-top">
-      <div class="logo-title">📖 Arabic 365</div>
-      <button class="btn-vault" onclick="openVault()">🎲 Activity Vault</button>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-top">
+        <div class="brand">
+          <div class="brand-icon">ع</div>
+          <div class="brand-text">Arabic 365</div>
+        </div>
+        <button class="btn-vault" onclick="openVault()">🎲 Activity Vault</button>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="stats-row">
+        <span id="progressText">0 / 260 Days Completed</span>
+        <span id="streakText">Phase 1: Foundations</span>
+      </div>
     </div>
-    <div class="progress-bar-bg">
-      <div class="progress-fill" id="progressFill"></div>
+
+    <!-- 10-Minute Guided Timer -->
+    <div class="timer-card">
+      <div>
+        <div class="timer-label">Guided 10-Min Session</div>
+        <div class="timer-display" id="timerDisplay">10:00</div>
+      </div>
+      <div class="timer-controls">
+        <button class="btn-timer" id="timerBtn" onclick="toggleTimer()">Start</button>
+        <button class="btn-timer-reset" onclick="resetTimer()">Reset</button>
+      </div>
     </div>
-    <div class="stats-row">
-      <span id="progressText">0 / 260 Days Completed</span>
-      <span id="streakText">Phase 1: Foundations</span>
+
+    <!-- Search & Filter Controls -->
+    <div class="controls">
+      <input type="text" class="search-box" id="searchInput" placeholder="Search day, word, or topic..." oninput="render()">
+      <select class="phase-select" id="phaseSelect" onchange="render()">
+        <option value="all">All Phases</option>
+        <option value="1">Phase 1: W 1–12</option>
+        <option value="2">Phase 2: W 13–24</option>
+        <option value="3">Phase 3: W 25–36</option>
+        <option value="4">Phase 4: W 37–48</option>
+        <option value="5">Phase 5: W 49–52</option>
+      </select>
     </div>
+
+    <!-- Daily Cards Output Container -->
+    <div id="lessonContainer"></div>
   </div>
 
-  <div class="timer-card">
-    <div>
-      <div style="font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700;">Guided 10-Min Session</div>
-      <div class="timer-display" id="timerDisplay">10:00</div>
-    </div>
-    <div class="timer-controls">
-      <button class="btn-timer" id="timerBtn" onclick="toggleTimer()">Start</button>
-      <button class="btn-timer-reset" onclick="resetTimer()">Reset</button>
-    </div>
-  </div>
-
-  <div class="controls">
-    <input type="text" class="search-box" id="searchInput" placeholder="Search Arabic, day, or keyword..." oninput="render()">
-    <select class="phase-select" id="phaseSelect" onchange="render()">
-      <option value="all">All Phases</option>
-      <option value="1">Phase 1: Weeks 1–12</option>
-      <option value="2">Phase 2: Weeks 13–24</option>
-      <option value="3">Phase 3: Weeks 25–36</option>
-      <option value="4">Phase 4: Weeks 37–48</option>
-      <option value="5">Phase 5: Weeks 49–52</option>
-    </select>
-  </div>
-
-  <div id="lessonContainer"></div>
-
-  <!-- Activity Vault Modal -->
+  <!-- Activity Vault Bottom Sheet -->
   <div class="modal-overlay" id="vaultModal" onclick="closeVault(event)">
     <div class="modal-sheet" onclick="event.stopPropagation()">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-        <h3 style="margin: 0; font-size: 18px;">🎲 12 Signature Activities</h3>
-        <button onclick="closeVault()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b;">✕</button>
+        <h3 style="margin: 0; font-size: 18px; color: #fff;">🎲 12 Signature Activities</h3>
+        <button onclick="closeVault()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #94a3b8;">✕</button>
       </div>
       <div id="vaultList"></div>
     </div>
@@ -363,30 +467,21 @@
   <script>
     // --- 12 Signature Games Reference Catalog ---
     const activityVault = [
-      { id: "flashlight", name: "Flashlight Detective (كَشَّافُ الظَّلَام)", bestFor: "Nouns, Colors, Spatial Relations", desc: "Dim the room lights. Shine a flashlight beam on a specific target object. Ask: «مَاذَا تَرَى فِي الظَّلَام؟». Child shouts: «أَرَى كِتَابًا أَزْرَقَ!». Then let child search for items you call out." },
-      { id: "tollbooth", name: "The Tollbooth Bridge (جِسْرُ الْمُرُور)", bestFor: "Requests: «أُرِيدُ... مِنْ فَضْلِكَ»", desc: "Stand in a doorway. To pass across the 'bridge', the child must hand over a toy ticket or request a required prop politely in Arabic: «أُرِيدُ التُّفَّاحَ مِنْ فَضْلِكَ!». You reply: «تَفَضَّلْ!» and let them jump through." },
-      { id: "charades", name: "Action Charades (مَسْرَحُ الْأَفْعَال)", bestFor: "Dynamic Action Verbs (Eat, Drink, Sleep, Run)", desc: "Zero words allowed! Panto-mime dramatic actions (slurping hot tea, heavy snail walk). Child shouts the Arabic verb: «تَشْرَبُ مَاءً!» or «تَنَامُ عَلَى السَّرِير!». Then switch roles." },
-      { id: "monster_feed", name: "Feed the Monster / Puppet (أَطْعِمِ الْوَحْش)", bestFor: "Food Vocabulary, Body Parts, Negative Commands", desc: "Use a box with a cut-out mouth or a puppet. Monster commands hungrily: «الْوَحْشُ جَائِع! أُرِيدُ خُبْزًا!». Child grabs the item and feeds it: «كُلِ الْخُبْز!». If you try to eat a pen, child stops you: «لَا! هٰذَا قَلَم!»." },
-      { id: "cups", name: "Memory Cup Shuffle (خِدْعَةُ الْأَكْوَاب)", bestFor: "Preposition «تَحْتَ...» (Under), Interrogatives", desc: "Place 3 opaque cups upside down. Hide a small token under one cup: «السَّمَكَةُ تَحْتَ الْكُوب». Shuffle the cups for 5 seconds. Child must announce in a complete sentence: «السَّمَكَةُ تَحْتَ هٰذَا الْكُوب!» before lifting it." },
-      { id: "scavenger", name: "Ayna al-... Scavenger Grab (أَيْنَ الْـ...؟)", bestFor: "Concrete Nouns, Household Objects", desc: "Scatter real items across the carpet. Shout: «أَيْنَ الْكِتَاب؟!». Child races to grab or touch it within 5 seconds and holds it up: «هٰذَا كِتَاب!»." },
-      { id: "islands", name: "Color Islands (جَزَائِرُ الْأَلْوَان)", bestFor: "Colors & Directions", desc: "Place colored sheets of construction paper on the floor. Shout: «إِلَى الْأَحْمَر!» or «ضَعِ الْقَلَمَ عَلَى الْأَخْضَر!». Child leaps to the color before 3 seconds elapse." },
-      { id: "simon", name: "Amir Yaqool (الْأَمِير يَقُول - Simon Says)", bestFor: "Movement Imperatives & Body Parts", desc: "Leader commands: «الْأَمِير يَقُول: اِقْفِزْ!». Child jumps. If leader says «اِجْلِسْ!» without «الْأَمِير يَقُول», the child must freeze." },
-      { id: "monster_draw", name: "Monster Whiteboard Dictation (رَسْمُ الْوَحْش)", bestFor: "Anatomy, Numbers 1–5, Sizes", desc: "Parent dictates ridiculous body counts to draw: «اُرْسُمْ رَأْسًا كَبِيرًا! أَرْبَعَ أَعْيُن! فَمًا وَاحِدًا!». Compare silly monster drawings." },
-      { id: "freeze_dance", name: "Opposites Freeze Dance (رَقْصَةُ الْأَضْدَاد)", bestFor: "Size & Speed Opposites", desc: "Play music. Stop music and call out: «أَنْتُمْ كِبَار!» (Stretch wide like giants) vs «صَغِير!» (Curled into a ball). Alternate «سَرِيع» with «بَطِيء»." },
-      { id: "kitchen", name: "Kitchen Pretend Cafe (مَطْعَمُ الْبَيْت)", bestFor: "Food, Utensils, Sensory Temps", desc: "Child acts as waiter or customer. «مَاذَا تُرِيد؟» $\rightarrow$ «أُرِيدُ مَاءً بَارِدًا». Serve cups and bread while practicing hospitality phrases." },
-      { id: "spot_error", name: "Spot the Absurd Lie (اكْتَشِفِ الْخَطَأ)", bestFor: "Listening Comprehension & Confidence", desc: "Make a deliberately ridiculous statement matching an action (e.g., hold up a shoe and say «هٰذَا خُبْزٌ لَذِيذ!»). Child buzzes in and corrects you: «لَا! هٰذَا حِذَاء!»." }
+      { id: "flashlight", name: "Flashlight Detective (كَشَّافُ الظَّلَام)", bestFor: "Nouns, Colors, Spatial Relations", desc: "Dim room. Shine a flashlight beam on an object. Ask: «مَاذَا تَرَى فِي الظَّلَام؟». Child responds: «أَرَى كِتَابًا أَزْرَقَ!». Child takes beam to find items you announce." },
+      { id: "tollbooth", name: "The Tollbooth Bridge (جِسْرُ الْمُرُور)", bestFor: "Requests: «أُرِيدُ... مِنْ فَضْلِكَ»", desc: "Stand in doorway. Child must hand a toy token or request a target prop politely: «أُرِيدُ التُّفَّاحَ مِنْ فَضْلِكَ!». You reply: «تَفَضَّلْ!» and allow passage." },
+      { id: "charades", name: "Action Charades (مَسْرَحُ الْأَفْعَال)", bestFor: "Dynamic Action Verbs (Eat, Drink, Sleep, Run)", desc: "Mime actions dramatically without words. Child shouts the Arabic verb: «تَشْرَبُ مَاءً!» or «تَنَامُ عَلَى السَّرِير!». Reverse roles." },
+      { id: "monster_feed", name: "Feed the Monster (أَطْعِمِ الْوَحْش)", bestFor: "Food Vocabulary, Imperatives, Negatives", desc: "Monster puppet announces: «الْوَحْشُ جَائِع! أُرِيدُ خُبْزًا!». Child drops in food: «كُلِ الْخُبْز!». If monster takes pen, child stops: «لَا! هٰذَا قَلَم!»." },
+      { id: "cups", name: "Memory Cup Shuffle (خِدْعَةُ الْأَكْوَاب)", bestFor: "Preposition «تَحْتَ...» (Under), Interrogatives", desc: "Hide small token under 1 of 3 cups: «السَّمَكَةُ تَحْتَ الْكُوب». Shuffle cups. Child points: «السَّمَكَةُ تَحْتَ هٰذَا الْكُوب!» before lifting." },
+      { id: "scavenger", name: "Ayna al-... Scavenger Grab (أَيْنَ الْـ...؟)", bestFor: "Concrete Nouns, Household Items", desc: "Scatter objects on carpet. Call: «أَيْنَ الْكِتَاب؟!». Child grabs it and shouts: «هٰذَا كِتَاب!»." },
+      { id: "islands", name: "Color Islands (جَزَائِرُ الْأَلْوَان)", bestFor: "Colors & Spatial Directions", desc: "Colored paper on floor. Call: «إِلَى الْأَحْمَر!» or «ضَعِ الْقَلَمَ عَلَى الْأَخْضَر!». Child leaps or places items before count of 3." },
+      { id: "simon", name: "Amir Yaqool (الْأَمِير يَقُول - Simon Says)", bestFor: "Imperatives & Body Parts", desc: "Leader commands: «الْأَمِير يَقُول: اِقْفِزْ!». Child leaps. If command lacks «الْأَمِير يَقُول», child must remain still." },
+      { id: "monster_draw", name: "Monster Whiteboard Dictation (رَسْمُ الْوَحْش)", bestFor: "Anatomy, Numbers 1–5, Sizes", desc: "Parent dictates ridiculous anatomy counts: «اُرْسُمْ رَأْسًا كَبِيرًا! ثَلَاثَ أَعْيُن!». Child draws and repeats features." },
+      { id: "freeze_dance", name: "Opposites Freeze Dance (رَقْصَةُ الْأَضْدَاد)", bestFor: "Size & Speed Opposites", desc: "Play cadence. Stop and call: «أَنْتُمْ كِبَار!» (Stretch wide) vs «صَغِير!» (Crouch small). Alternate «سَرِيع» with «بَطِيء»." },
+      { id: "kitchen", name: "Kitchen Pretend Cafe (مَطْعَمُ الْبَيْت)", bestFor: "Food, Utensils, Temperatures", desc: "Roleplay ordering: «مَاذَا تُرِيد؟» $\rightarrow$ «أُرِيدُ مَاءً بَارِدًا». Serve cups while exchanging polite markers." },
+      { id: "spot_error", name: "Spot the Absurd Lie (اكْتَشِفِ الْخَطَأ)", bestFor: "Comprehension & Auditory Alertness", desc: "Make absurd statement (e.g., hold shoe and say «هٰذَا خُبْزٌ لَذِيذ!»). Child catches and corrects: «لَا! هٰذَا حِذَاء!»." }
     ];
 
-    // --- Curriculum Data Generator (All 260 Days) ---
-    const phases = [
-      { id: 1, name: "Phase 1: Sensory & Physical Foundations", weeks: [1, 12] },
-      { id: 2, name: "Phase 2: Functional Living & Root Families", weeks: [13, 24] },
-      { id: 3, name: "Phase 3: Classical Literature & Narrative", weeks: [25, 36] },
-      { id: 4, name: "Phase 4: Conversational Fluency & Hadith", weeks: [37, 48] },
-      { id: 5, name: "Phase 5: Synthesis & Independent Fluency", weeks: [49, 52] }
-    ];
-
-    // Baseline curriculum generator with 3 words/day and game mappings
+    // --- Curriculum Matrix (260 Days) ---
     const lessons = [];
     const coreNouns = [
       ["كِتَابٌ", "قَلَمٌ", "كُوبٌ"], ["بَابٌ", "كُرْسِيٌّ", "طَاوِلَةٌ"],
@@ -429,67 +524,67 @@
           words = [pair[0], pair[1], pair[2]];
           title = "Everyday Objects & Touch Reflex";
           script = `«أَيْنَ ${words[0]}؟... هٰذَا ${words[0]}!»`;
-          goal = "Child points to or grabs target item upon hearing vocalized name.";
-          defaultGame = activityVault[5]; // Scavenger Grab
+          goal = "Child identifies or points to physical items upon hearing the vocalized Arabic name.";
+          defaultGame = activityVault[5];
         } else if (dayOfWeek === 3) {
           const v = coreVerbs[(day - 1) % coreVerbs.length];
           words = [v[0], v[1], v[2]];
           title = "Action Commands & Movement";
           script = `«الْأَمِير يَقُول... ${words[0]}! ثُمَّ ${words[1]}!»`;
-          goal = "Child physically executes commands immediately without hesitation.";
-          defaultGame = activityVault[7]; // Simon Says
+          goal = "Child executes commands instantly via bodily movement.";
+          defaultGame = activityVault[7];
         } else if (dayOfWeek === 4) {
           words = ["أَحْمَر", "أَزْرَق", "أَخْضَر"];
           title = "Colors & Spatial Anchors";
-          script = `«إِلَى الْأَحْمَر! ضَعِ الْكِتَابَ عَلَى الْأَزْرَق!»`;
-          goal = "Child leaps onto color sheets or places items on target colors.";
-          defaultGame = activityVault[6]; // Islands
+          script = `«إِلَى الْأَحْمَر! ضَعِ الْقَلَمَ عَلَى الْأَخْضَر!»`;
+          goal = "Child identifies colors on target cards or floor tiles.";
+          defaultGame = activityVault[6];
         } else {
           words = ["كَبِيرٌ", "صَغِيرٌ", "سَرِيعٌ"];
           title = "Physical Opposites & Review";
           script = `«أَنْتُمْ كِبَار!... صَغِير!... اِمْشِ سَرِيع!»`;
           goal = "Full-body posture shifts expressing scale and velocity.";
-          defaultGame = activityVault[9]; // Freeze Dance
+          defaultGame = activityVault[9];
         }
       } else if (phaseId === 2) {
         if (dayOfWeek <= 2) {
           words = ["أَسْتَيْقِظُ", "أَغْسِلُ", "آكُلُ"];
-          title = "Daily Routine & Present Tense Verbs";
+          title = "Daily Routine & Present Tense";
           script = `«مَاذَا تَفْعَلُ الْآن؟... أَنَا أَغْسِلُ وَجْهِي!»`;
-          goal = "Answering what they are currently doing using 1st-person present tense.";
-          defaultGame = activityVault[2]; // Charades
+          goal = "Expressing ongoing actions in the 1st person present tense.";
+          defaultGame = activityVault[2];
         } else if (dayOfWeek <= 4) {
           const r = coreRoots[(day - 1) % coreRoots.length];
           words = r.words;
           title = `Root Family Discovery: [${r.root}]`;
           script = `«عِنْدَنَا جِذْرٌ سِرِّيّ: ${r.root}... كَتَبَ، كِتَاب، مَكْتَب!»`;
-          goal = "Spotting the 3 common root letters shared across related words.";
-          defaultGame = activityVault[0]; // Flashlight
+          goal = "Identifying shared 3-letter roots across distinct nouns and verbs.";
+          defaultGame = activityVault[0];
         } else {
           words = ["بَيْتِي", "كِتَابُكَ", "قَلَمِي"];
           title = "Possessive Pronouns & Ownership";
           script = `«هٰذَا قَلَمِي! هٰذَا كِتَابُكَ!»`;
-          goal = "Distinguishing between my item (-ee) and your item (-uka).";
-          defaultGame = activityVault[1]; // Tollbooth
+          goal = "Distinguishing 1st-person (-ee) and 2nd-person (-uka) attachments.";
+          defaultGame = activityVault[1];
         }
       } else if (phaseId === 3) {
         words = ["ذَهَبَ", "رَأَى", "قَالَ"];
-        title = "Classical Reader: Qasas al-Nabiyyīn (Vignette)";
+        title = "Classical Reader: Qasas al-Nabiyyīn";
         script = `«ذَهَبَ إِبْرَاهِيمُ... رَأَى الْأَصْنَامَ فَقَالَ: مَا هٰذَا؟»`;
         goal = "Echoing 3-part narrative sequence and pointing to story props.";
-        defaultGame = activityVault[3]; // Monster Feed / Puppet
+        defaultGame = activityVault[3];
       } else if (phaseId === 4) {
         words = ["تَبَسَّمَ", "صَدَقَةٌ", "أَخِيكَ"];
         title = "Prophetic Speech & Ethical Rhythm";
         script = `«تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ صَدَقَةٌ»`;
-        goal = "Reciting classical rhythmic phrase with natural pauses.";
-        defaultGame = activityVault[11]; // Spot the Lie
+        goal = "Reciting classical rhythmic phrases with natural phrasing.";
+        defaultGame = activityVault[11];
       } else {
         words = ["أُرِيدُ أَنْ...", "لِأَنَّ...", "فِي الْحَقِيقَةِ"];
-        title = "Spontaneous Synthesis & Free Narration";
+        title = "Spontaneous Synthesis & Free Dialogue";
         script = `«مَاذَا حَدَثَ الْيَوْم؟... احْكِ لِي قِصَّةً صَغِيرَة!»`;
-        goal = "Child constructs 3 linked sentences in Fus'ha from personal memory.";
-        defaultGame = activityVault[1]; // Tollbooth
+        goal = "Constructing 3 interconnected sentences in Fus'ha.";
+        defaultGame = activityVault[1];
       }
 
       lessons.push({
@@ -505,9 +600,10 @@
       });
     }
 
-    // --- State & Audio Handlers ---
+    // --- State Storage ---
     let completedDays = JSON.parse(localStorage.getItem('arabic365_completed') || '[]');
     let customGameOverrides = JSON.parse(localStorage.getItem('arabic365_game_overrides') || '{}');
+    let expandedReviewDays = {};
 
     function speak(text) {
       if ('speechSynthesis' in window) {
@@ -520,9 +616,11 @@
       }
     }
 
-    function toggleComplete(dayId) {
+    function toggleComplete(dayId, event) {
+      if (event) event.stopPropagation();
       if (completedDays.includes(dayId)) {
         completedDays = completedDays.filter(d => d !== dayId);
+        delete expandedReviewDays[dayId];
       } else {
         completedDays.push(dayId);
       }
@@ -530,7 +628,13 @@
       render();
     }
 
-    function swapActivity(dayId) {
+    function toggleExpandReview(dayId) {
+      expandedReviewDays[dayId] = !expandedReviewDays[dayId];
+      render();
+    }
+
+    function swapActivity(dayId, event) {
+      if (event) event.stopPropagation();
       const current = customGameOverrides[dayId] || lessons[dayId - 1].currentGame.id;
       const otherGames = activityVault.filter(g => g.id !== current);
       const randomNew = otherGames[Math.floor(Math.random() * otherGames.length)];
@@ -539,7 +643,7 @@
       render();
     }
 
-    // --- Timer Logic ---
+    // --- Timer Handlers ---
     let timerDuration = 600;
     let timerRunning = false;
     let timerInterval = null;
@@ -581,14 +685,14 @@
         `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     }
 
-    // --- Vault Modal Handlers ---
+    // --- Vault Modal ---
     function openVault() {
       const list = document.getElementById('vaultList');
       list.innerHTML = activityVault.map(a => `
         <div class="vault-card">
           <div class="vault-title">${a.name}</div>
-          <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 4px;">BEST FOR: ${a.bestFor}</div>
-          <div style="font-size: 13px; color: #334155; line-height: 1.4;">${a.desc}</div>
+          <div style="font-size: 11px; font-weight: 700; color: #10b981; margin-bottom: 4px;">BEST FOR: ${a.bestFor}</div>
+          <div style="font-size: 13px; color: #cbd5e1; line-height: 1.4;">${a.desc}</div>
         </div>
       `).join('');
       document.getElementById('vaultModal').classList.add('active');
@@ -598,7 +702,7 @@
       document.getElementById('vaultModal').classList.remove('active');
     }
 
-    // --- Main Render Loop ---
+    // --- Render Cards ---
     function render() {
       const container = document.getElementById('lessonContainer');
       const search = document.getElementById('searchInput').value.toLowerCase().trim();
@@ -615,46 +719,60 @@
 
       container.innerHTML = filtered.map(l => {
         const isDone = completedDays.includes(l.id);
+        const isExpanded = !!expandedReviewDays[l.id];
         const activeGameId = customGameOverrides[l.id] || l.currentGame.id;
         const activeGame = activityVault.find(g => g.id === activeGameId) || l.currentGame;
 
         return `
-          <div class="card ${isDone ? 'completed' : ''}" id="day-${l.id}">
+          <div class="card ${isDone ? 'completed' : ''} ${isExpanded ? 'expanded' : ''}" id="day-${l.id}">
             <div class="card-header">
-              <div>
+              <div style="flex: 1;">
                 <div class="day-badge">Day ${l.id} • Week ${l.week} (Day ${l.dayOfWeek})</div>
                 <h3 class="card-title">${l.title}</h3>
               </div>
-              <button class="check-btn" onclick="toggleComplete(${l.id})">${isDone ? '✓' : ''}</button>
+              <button class="check-btn" onclick="toggleComplete(${l.id}, event)" title="${isDone ? 'Unmark Day' : 'Mark Complete'}">
+                ${isDone ? '✓' : ''}
+              </button>
             </div>
 
-            <div class="triad-box">
-              ${l.words.map(w => `
-                <button class="arabic-chip" onclick="speak('${w}')">
-                  🔊 ${w}
-                </button>
-              `).join('')}
-            </div>
+            ${isDone ? `
+              <button class="btn-expand-review" onclick="toggleExpandReview(${l.id})">
+                ${isExpanded ? '▲ Collapse Lesson' : '▼ Expand & Review Day ' + l.id}
+              </button>
+            ` : ''}
 
-            <div class="activity-section">
-              <div class="activity-header">
-                <span class="activity-tag">🎯 Game: ${activeGame.name.split(' (')[0]}</span>
-                <button class="btn-swap" onclick="swapActivity(${l.id})">🔀 Swap Game</button>
+            <!-- Collapsible Body for Completed Days -->
+            <div class="collapsed-content">
+              <div class="triad-box">
+                ${l.words.map(w => `
+                  <button class="arabic-chip" onclick="speak('${w}')">
+                    🔊 ${w}
+                  </button>
+                `).join('')}
               </div>
-              <div class="meta-line" style="font-size: 12px; margin-bottom: 8px;"><strong>Rule:</strong> ${activeGame.desc}</div>
-              <div class="script-bubble" onclick="speak('${l.script}')">
-                🔊 ${l.script}
-              </div>
-            </div>
 
-            <div class="meta-line" style="margin-top: 10px;">
-              <strong>Daily Goal:</strong> ${l.goal}
+              <div class="activity-section">
+                <div class="activity-header">
+                  <span class="activity-tag">🎯 Game: ${activeGame.name.split(' (')[0]}</span>
+                  <button class="btn-swap" onclick="swapActivity(${l.id}, event)">🔀 Swap Game</button>
+                </div>
+                <div class="meta-line" style="font-size: 12px; margin-bottom: 8px;">
+                  <strong style="color: #94a3b8;">Rule:</strong> ${activeGame.desc}
+                </div>
+                <div class="script-bubble" onclick="speak('${l.script}')">
+                  🔊 ${l.script}
+                </div>
+              </div>
+
+              <div class="meta-line" style="margin-top: 10px;">
+                <strong style="color: #cbd5e1;">Daily Goal:</strong> ${l.goal}
+              </div>
             </div>
           </div>
         `;
       }).join('');
 
-      // Update Top Metrics
+      // Top Progress Metrics
       const pct = Math.round((completedDays.length / 260) * 100);
       document.getElementById('progressFill').style.width = pct + '%';
       document.getElementById('progressText').innerText = `${completedDays.length} / 260 Days Completed (${pct}%)`;
