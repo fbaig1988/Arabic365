@@ -9,7 +9,50 @@
   <title>Arabic 365: Daily Classical Arabic Coach</title>
 
   <!-- High-Res Flashy App Icon for iOS Home Screen (Gold Calligraphic Star on Deep Emerald) -->
-  <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'><defs><linearGradient id='bgGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23064e3b'/><stop offset='50%25' stop-color='%23022c22'/><stop offset='100%25' stop-color='%2309111e'/></linearGradient><linearGradient id='goldGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23fef08a'/><stop offset='50%25' stop-color='%23eab308'/><stop offset='100%25' stop-color='%23ca8a04'/></linearGradient><radialGradient id='glow' cx='50%25' cy='50%25' r='50%25'><stop offset='0%25' stop-color='%2310b981' stop-opacity='0.35'/><stop offset='100%25' stop-color='%23022c22' stop-opacity='0'/></radialGradient></defs><rect width='512' height='512' rx='115' fill='url(%23bgGrad)'/><circle cx='256' cy='256' r='200' fill='url(%23glow)'/><circle cx='256' cy='256' r='180' fill='none' stroke='url(%23goldGrad)' stroke-width='6' stroke-dasharray='12,8' opacity='0.8'/><circle cx='256' cy='256' r='158' fill='none' stroke='%2334d399' stroke-width='2' opacity='0.5'/><text x='256' y='295' font-size='165' font-weight='900' font-family='sans-serif' fill='url(%23goldGrad)' text-anchor='middle'>ع</text><text x='256' y='375' font-size='38' font-weight='800' font-family='sans-serif' fill='%236ee7b7' text-anchor='middle' letter-spacing='5'>365</text></svg>">
+  <link rel="apple-touch-icon" id="appleTouchIcon" href="">
+  <script>
+    (function generateAppleIcon() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 180;
+      canvas.height = 180;
+      const ctx = canvas.getContext('2d');
+
+      // Rounded emerald background
+      ctx.fillStyle = '#064e3b';
+      ctx.fillRect(0, 0, 180, 180);
+
+      // Radial glowing core
+      const glow = ctx.createRadialGradient(90, 90, 10, 90, 90, 90);
+      glow.addColorStop(0, '#10b981');
+      glow.addColorStop(1, '#022c22');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(90, 90, 78, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Gold decorative ring
+      ctx.strokeStyle = '#eab308';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.arc(90, 90, 70, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Arabic Calligraphy Letter ('Ain)
+      ctx.fillStyle = '#fef08a';
+      ctx.font = 'bold 74px -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('ع', 90, 80);
+
+      // '365' Subtitle
+      ctx.fillStyle = '#a7f3d0';
+      ctx.font = 'bold 20px -apple-system, sans-serif';
+      ctx.fillText('365', 90, 134);
+
+      // Attach genuine PNG to iOS icon tag
+      document.getElementById('appleTouchIcon').href = canvas.toDataURL('image/png');
+    })();
+  </script>
 
   <style>
     :root {
